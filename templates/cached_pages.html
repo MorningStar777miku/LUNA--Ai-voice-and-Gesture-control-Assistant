@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cached Summaries</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>📚 Cached Page Summaries</h1>
+    {% for query, summary in cache.items() %}
+        <div>
+            <h3>{{ query }}</h3>
+            <p>{{ summary }}</p>
+            <hr>
+        </div>
+    {% endfor %}
+    <a href="/">← Back to Luna</a>
+</body>
+</html>

@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 40px;
+    background-color: #1e1e2f;  /* Dark violet-blue background */
+    color: #ffffff; /* High-contrast white text */
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h1 {
+    color: #ff66b2;  /* Luna’s signature pink */
+}
+
+input {
+    width: 60%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    background-color: #2e2e40;
+    color: white;
+}
+
+button {
+    background-color: #ff66b2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #ff3385;
+}
+
+#output {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ffeeff;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    color: #fff;
+}
+
+li {
+    background: #2e2e40;
+    color: #ffffff;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    color: #80bfff;  /* Soft blue link color */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

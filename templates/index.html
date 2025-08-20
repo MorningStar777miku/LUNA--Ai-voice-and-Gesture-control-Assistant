@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luna AI Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Luna AI Assistant</h1>
+        <p id="status">Ask me anything, Senpai~</p>
+
+        <!-- Text Input -->
+        <input type="text" id="command" placeholder="Type your command..." autofocus>
+        <button onclick="sendCommand()">Send</button>
+
+        <!-- Voice Input -->
+        <button onclick="startListening()">🎤 Speak</button>
+        <button onclick="stopListening()" id="stopButton" style="display:none;">🛑 Stop Listening</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function sendCommand() {
+            const command = document.getElementById('command').value;
+            if (command.trim() === '') return;
+
+            fetch('/luna_command', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('output').innerText = data.reply;
+                document.getElementById('command').value = '';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        let recognition;
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                document.getElementById('status').innerText = 'Listening...';
+                document.getElementById('stopButton').style.display = 'inline';
+            };
+
+            recognition.onresult = function(event) {
+                const command = event.results[0][0].transcript;
+                document.getElementById('command').value = command;
+                sendCommand();
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error', event);
+            };
+
+            recognition.onend = function() {
+                document.getElementById('status').innerText = 'Ask me anything, Senpai~';
+                document.getElementById('stopButton').style.display = 'none';
+            };
+        }
+
+        function startListening() {
+            if (recognition) {
+                recognition.start();
+            }
+        }
+
+        function stopListening() {
+            if (recognition) {
+                recognition.stop();
+            }
+        }
+    </script>
+    {% if offline_mode %}
+    <p style="color: red;">[Offline Mode] Luna is working with limited memory.</p>
+    {% endif %}
+</body>
+</html>

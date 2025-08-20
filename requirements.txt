@@ -1,0 +1,9 @@
+Flask
+python-dotenv
+pandas
+openpyxl
+pyttsx3
+requests
+speedtest-cli
+SpeechRecognition
+
